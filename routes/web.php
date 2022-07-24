@@ -84,3 +84,5 @@ Route::get('/product/destroy/{product}', [ProductController::class, 'destroy']);
 //     return view('frontend.welcome');
 // });
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/view-details/{id}', [HomeController::class, 'view_details']);
+Route::get('/product-by-category/{id}', [HomeController::class, 'product_by_category']);

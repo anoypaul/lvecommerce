@@ -58,7 +58,7 @@
                         <ul class="section-tab-nav tab-nav">
                             {{-- <li class="active"><a data-toggle="tab" href="#tab1">Laptops</a></li> --}}
                             @foreach ($category as $value)
-                                <li><a data-toggle="tab" href="#">{{$value->category_ms_name}}</a></li>
+                                <li><a href="{{url('product-by-category/'.$value->category_ms_id)}}">{{$value->category_ms_name}}</a></li>
                             @endforeach
                         </ul>
                     </div>
@@ -78,22 +78,21 @@
                                 @php
                                     $images = explode('|', $value->products_image);
                                     $image = $images[0];   
-                                    // echo '<pre>';
-                                    // print_r($image);
-                                    // exit;               
                                 @endphp
                                 <div class="product">
                                     <div class="product-img">
-                                        <img src="{{asset('/uploads/image/'.$image)}}" alt="" style="width: 256px; height:186px;">
-                                        <div class="product-label">
-                                            <span class="sale">-30%</span>
-                                            <span class="new">NEW</span>
-                                        </div>
+                                        <a href="{{url('/view-details/'. $value->products_id)}}">
+                                            <img src="{{asset('/uploads/image/'.$image)}}" alt="" style="width: 256px; height:186px;">
+                                            <div class="product-label">
+                                                <span class="sale">-30%</span>
+                                                <span class="new">NEW</span>
+                                            </div>
+                                        </a>
                                     </div>
                                     <div class="product-body">
-                                        <p class="product-category">{{$value->category->category_ms_name}}</p>
-                                        <h3 class="product-name"><a href="#">{{$value->products_name}}</a></h3>
-                                        <h4 class="product-price">&#2547;{{$value->products_price}} <del class="product-old-price">{{$value->products_price}} </del></h4>
+                                        <p class="product-category"><a href="{{url('/view-details/'. $value->products_id)}}"> {{$value->category->category_ms_name}} </a></p>
+                                        <h3 class="product-name"><a href="{{url('/view-details/'. $value->products_id)}}">{{$value->products_name}}</a></h3>
+                                        <h4 class="product-price"><a href="{{url('/view-details/'. $value->products_id)}}"> &#2547;{{$value->products_price}} <del class="product-old-price">{{$value->products_price}} </del> </a></h4>
                                         <div class="product-rating">
                                             <i class="fa fa-star"></i>
                                             <i class="fa fa-star"></i>
@@ -102,9 +101,9 @@
                                             <i class="fa fa-star"></i>
                                         </div>
                                         <div class="product-btns">
-                                            <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp">add to wishlist</span></button>
-                                            <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp">add to compare</span></button>
-                                            <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp">quick view</span></button>
+                                            <button class="add-to-wishlist"><i class="fa fa-heart-o"></i><span class="tooltipp"><a href="{{url('/view-details/'. $value->products_id)}}"> add to wishlist </a></span></button>
+                                            <button class="add-to-compare"><i class="fa fa-exchange"></i><span class="tooltipp"><a href="{{url('/view-details/'. $value->products_id)}}"> add to compare</a></span></button>
+                                            <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp"><a href="{{url('/view-details/'. $value->products_id)}}"> quick view</a></span></button>
                                         </div>
                                     </div>
                                     <div class="add-to-cart">
@@ -303,7 +302,7 @@
                         <ul class="section-tab-nav tab-nav">
                             {{-- <li class="active"><a data-toggle="tab" href="#tab2">Laptops</a></li> --}}
                             @foreach ($category as $value)
-                                <li><a data-toggle="tab" href="#">{{$value->category_ms_name}}</a></li>
+                                <li><a href="{{url('product-by-category/'.$value->category_ms_id)}}">{{$value->category_ms_name}}</a></li>
                             @endforeach
                         </ul>
                     </div>
