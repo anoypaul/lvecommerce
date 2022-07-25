@@ -10,6 +10,8 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\SizeController;
 use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 
 
 /*
@@ -88,3 +90,10 @@ Route::get('/view-details/{id}', [HomeController::class, 'view_details']);
 Route::get('/product-by-category/{id}', [HomeController::class, 'product_by_category']);
 Route::get('/product-by-subcategory/{id}', [HomeController::class, 'product_by_subcategory']);
 Route::get('/product-by-brand/{id}', [HomeController::class, 'product_by_brand']);
+
+// Add to cart
+Route::post('add-to-cart/',[CartController::class, 'add_to_cart']);
+Route::get('cart-item-delete/{id}',[CartController::class, 'cart_item_delete']);
+// Checkout page route
+Route::get('checkout-page/',[CheckoutController::class, 'index']);
+Route::get('login-check/',[CheckoutController::class, 'login_check']);

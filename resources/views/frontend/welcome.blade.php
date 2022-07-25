@@ -106,9 +106,14 @@
                                             <button class="quick-view"><i class="fa fa-eye"></i><span class="tooltipp"><a href="{{url('/view-details/'. $value->products_id)}}"> quick view</a></span></button>
                                         </div>
                                     </div>
-                                    <div class="add-to-cart">
-                                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
-                                    </div>
+                                    <form action="{{url('add-to-cart/')}}" method="post">
+                                        @csrf
+                                        <div class="add-to-cart">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <input type="hidden" name="id" value="{{$value->products_id}}">
+                                            <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i> add to cart</button>
+                                        </div>
+                                    </form>
                                 </div>
                                 @endforeach
 
