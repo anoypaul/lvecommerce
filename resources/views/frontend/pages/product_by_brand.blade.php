@@ -15,20 +15,20 @@
 					<div id="aside" class="col-md-3">
 						<!-- aside Widget -->
 						<div class="aside">
-							<h3 class="aside-title">Sub Categories</h3>
+							<h3 class="aside-title">Categories</h3>
 							<div class="checkbox-filter">
-								@foreach ($subcategory as $value)
+								@foreach ($category as $value)
 									@php
-										$subcategoryCount = \App\Models\Product::subcategoryProductCount($value->sub_categories_id);
+										$categoryCount = \App\Models\Product::categoryProductCount($value->category_ms_id);
 									@endphp
 									<div class="input-checkbox">
 										<input type="checkbox" id="category-1">
 										<label for="category-1">
 											<span></span>
-											<a href="{{url('product-by-subcategory/'.$value->sub_categories_id)}}">
-												{{$value->sub_categories_name}}
-											</a>
-											<small>{{$subcategoryCount}}</small>
+											<a href="{{url('product-by-category/'.$value->category_ms_id)}}">
+											    {{$value->category_ms_name}}
+                                            </a>
+											<small>{{$categoryCount}}</small>
 										</label>
 									</div>
 								@endforeach
@@ -58,20 +58,20 @@
 
 						<!-- aside Widget -->
 						<div class="aside">
-							<h3 class="aside-title">Brand</h3>
+							<h3 class="aside-title">Sub Categories</h3>
 							<div class="checkbox-filter">
-								@foreach ($brand as $value)
+								@foreach ($subcategory as $value)
 									@php
-										$brandCount = Product::brandProductCount($value->brands_id);
+										$subcategoryCount = \App\Models\Product::subcategoryProductCount($value->sub_categories_id);
 									@endphp
 									<div class="input-checkbox">
-										<input type="checkbox" id="brand-1">
-										<label for="brand-1">
+										<input type="checkbox" id="category-1">
+										<label for="category-1">
 											<span></span>
-											<a href="{{url('product-by-brand/'.$value->brands_id)}}">
-												{{$value->brands_name}}
+											<a href="{{url('product-by-subcategory/'.$value->sub_categories_id)}}">
+												{{$value->sub_categories_name}}
 											</a>
-											<small>{{$brandCount}}</small>
+											<small>{{$subcategoryCount}}</small>
 										</label>
 									</div>
 								@endforeach
