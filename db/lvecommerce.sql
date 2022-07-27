@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 25, 2022 at 03:53 AM
+-- Generation Time: Jul 27, 2022 at 06:43 PM
 -- Server version: 8.0.27
 -- PHP Version: 7.4.26
 
@@ -125,6 +125,32 @@ INSERT INTO `colors` (`colors_id`, `colors_color`, `colors_status`, `created_at`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `customers`
+--
+
+DROP TABLE IF EXISTS `customers`;
+CREATE TABLE IF NOT EXISTS `customers` (
+  `customers_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `customers_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customers_email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customers_password` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `customers_phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`customers_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`customers_id`, `customers_name`, `customers_email`, `customers_password`, `customers_phone`, `created_at`, `updated_at`) VALUES
+(1, 'shipon', 'shipon@gmail.com', '12345', '01710101010', NULL, NULL),
+(2, 'ripon', 'ripon@gmail.com', '12345', '01720202020', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `failed_jobs`
 --
 
@@ -153,7 +179,7 @@ CREATE TABLE IF NOT EXISTS `migrations` (
   `migration` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `migrations`
@@ -171,7 +197,71 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2022_07_21_191216_create_units_table', 6),
 (10, '2022_07_22_044703_create_sizes_table', 7),
 (11, '2022_07_22_070627_create_colors_table', 8),
-(12, '2022_07_22_164457_create_products_table', 9);
+(12, '2022_07_22_164457_create_products_table', 9),
+(13, '2022_07_25_165322_create_customers_table', 10),
+(14, '2022_07_26_060253_create_shippings_table', 11),
+(15, '2022_07_26_133125_create_payments_table', 12),
+(16, '2022_07_26_140646_create_orders_table', 13),
+(17, '2022_07_26_140714_create_order_details_table', 13);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+DROP TABLE IF EXISTS `orders`;
+CREATE TABLE IF NOT EXISTS `orders` (
+  `orders_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `customers_id` int NOT NULL,
+  `shippings_id` int NOT NULL,
+  `payments_id` int NOT NULL,
+  `orders_total` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `orders_status` varchar(191) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`orders_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`orders_id`, `customers_id`, `shippings_id`, `payments_id`, `orders_total`, `orders_status`, `created_at`, `updated_at`) VALUES
+(1, 1, 4, 3, '20000', 'pending', '2022-07-26 02:47:55', NULL),
+(2, 1, 5, 5, '90000', 'pending', NULL, NULL),
+(3, 1, 5, 6, '0', 'pending', NULL, NULL),
+(4, 1, 6, 7, '50000', 'pending', NULL, NULL),
+(5, 1, 7, 8, '50000', 'pending', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_details`
+--
+
+DROP TABLE IF EXISTS `order_details`;
+CREATE TABLE IF NOT EXISTS `order_details` (
+  `order_details_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `orders_id` int NOT NULL,
+  `products_id` int NOT NULL,
+  `products_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `products_price` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `products_sales_qty` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`order_details_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_details`
+--
+
+INSERT INTO `order_details` (`order_details_id`, `orders_id`, `products_id`, `products_name`, `products_price`, `products_sales_qty`, `created_at`, `updated_at`) VALUES
+(1, 1, 5, 'sony camera', '20000', '2', NULL, NULL),
+(2, 2, 3, 'samsung phone', '90000', '1', NULL, NULL),
+(3, 4, 4, 'lenovo ideapad', '50000', '3', NULL, NULL),
+(4, 5, 4, 'lenovo ideapad', '50000', '1', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -186,6 +276,36 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
   `created_at` timestamp NULL DEFAULT NULL,
   KEY `password_resets_email_index` (`email`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `payments`
+--
+
+DROP TABLE IF EXISTS `payments`;
+CREATE TABLE IF NOT EXISTS `payments` (
+  `payments_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `payments_method` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `payments_status` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`payments_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`payments_id`, `payments_method`, `payments_status`, `created_at`, `updated_at`) VALUES
+(1, 'bkash', 'pending', NULL, NULL),
+(2, 'bkash', 'pending', NULL, NULL),
+(3, 'bkash', 'pending', NULL, NULL),
+(4, 'roket', 'pending', NULL, NULL),
+(5, 'roket', 'pending', NULL, NULL),
+(6, 'roket', 'pending', NULL, NULL),
+(7, 'nogod', 'pending', NULL, NULL),
+(8, 'bkash', 'pending', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -241,8 +361,41 @@ CREATE TABLE IF NOT EXISTS `products` (
 
 INSERT INTO `products` (`products_id`, `category_ms_id`, `sub_categories_id`, `brands_id`, `units_id`, `sizes_id`, `colors_id`, `products_code`, `products_name`, `products_description`, `products_price`, `products_image`, `products_status`, `created_at`, `updated_at`) VALUES
 (3, 5, 4, 3, 2, 2, 2, 's22', 'samsung phone', 'samsung phone description', 90000.00, 'IMG_764016586397910.jpg|samsung-galaxy-s22-ultra-5g-216586397911.jpg', 1, '2022-07-23 21:11:56', '2022-07-23 23:16:31'),
-(4, 6, 4, 5, 2, 3, 2, 'ideapad 310', 'lenovo ideapad', 'lenovo product description&nbsp;', 50000.00, 'UEEkgUpRTeWcwpGaYpPJES16587187300.jpg', 1, '2022-07-23 21:13:39', '2022-07-24 21:12:10'),
+(4, 6, 4, 5, 2, 3, 2, 'ideapad 310', 'lenovo ideapad', 'lenovo product description&nbsp;', 50000.00, 'photo-1618424181497-157f25b6ddd516587385190.jfif|UEEkgUpRTeWcwpGaYpPJES16587385191.jpg', 1, '2022-07-23 21:13:39', '2022-07-25 02:41:59'),
 (5, 7, 4, 4, 2, 4, 2, 'c100', 'sony camera', 'camera product description', 20000.00, 'download16587187530.jfif|pexels-fox-22515716587187531.jpg', 1, '2022-07-23 21:15:20', '2022-07-24 21:12:33');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shippings`
+--
+
+DROP TABLE IF EXISTS `shippings`;
+CREATE TABLE IF NOT EXISTS `shippings` (
+  `shippings_id` bigint UNSIGNED NOT NULL AUTO_INCREMENT,
+  `shippings_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shippings_email` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shippings_address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shippings_city` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shippings_country` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shippings_zip_code` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shippings_phone` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`shippings_id`)
+) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `shippings`
+--
+
+INSERT INTO `shippings` (`shippings_id`, `shippings_name`, `shippings_email`, `shippings_address`, `shippings_city`, `shippings_country`, `shippings_zip_code`, `shippings_phone`, `created_at`, `updated_at`) VALUES
+(1, 'anoy', 'anoy@gmail.com', 'North-Dhanmondi, Dhaka.', 'Dhaka', 'Bangladesh', '1209', '015101010101', NULL, NULL),
+(3, 'shipon', 'shipon@gmail.com', 'dhaka', 'dhaka', 'bangladesh', '1234', '019898989', NULL, NULL),
+(4, 'shipon', 'shipon@gmail.com', 'dhaka', 'Dhaka', 'bangladesh', '1234', '019898989', NULL, NULL),
+(5, 'shipon', 'shipon@gmail.com', 'dhaka', 'dhaka', 'bangladesh', '1234', '01990909090', NULL, NULL),
+(6, 'robi', 'robi@gmail.com', 'cumilla', 'cumilla', 'bangladesh', '1234', '01978787878', NULL, NULL),
+(7, 'chobi', 'chobi@gmail.com', 'comilla', 'comilla', 'bangladesh', '1234', '018787878', NULL, NULL);
 
 -- --------------------------------------------------------
 
