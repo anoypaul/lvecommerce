@@ -10,6 +10,7 @@ use App\Models\Size;
 use App\Models\SubCategory;
 use App\Models\Unit;
 use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -21,7 +22,23 @@ class HomeController extends Controller
         $size = Size::all();
         $color = Color::all();
         $product = Product::where('products_status', 1)->latest()->limit(12)->get();
-        return view('frontend.welcome', compact('category', 'subcategory', 'brand', 'unit', 'size', 'color', 'product'));
+
+        $top_sale = DB::table('products')
+        ->leftJoin('order_details', 'products.products_id', '=', 'order_details.products_id')
+        ->selectRaw('products.products_id, SUM(order_details.products_sales_qty) as total')
+        ->groupBy('products.products_id')
+        ->orderBy('total', 'desc')
+        ->take(8)
+        ->get();
+
+        $topProducts = array();
+        foreach ($top_sale as $value) {
+            $product_data = Product::findOrFail($value->products_id);
+            $product_data->totalQty = $value->total;
+            $topProducts[] = $product_data; 
+        }
+
+        return view('frontend.welcome', compact('category', 'subcategory', 'brand', 'unit', 'size', 'color', 'product', 'topProducts'));
     }
 
     public function view_details($id){
@@ -57,5 +74,15 @@ class HomeController extends Controller
         $brand = Brand::all();
         $product = Product::where('products_status', 1)->where('brands_id', $id)->limit(12)->get();
         return view('frontend.pages.product_by_brand', compact('category', 'subcategory', 'brand', 'product'));
+    }
+
+    public function search(Request $request){
+        $product = Product::orderBy('products_id', 'desc')->where('products_name', 'LIKE', '%'.$request->product.'%');
+        if($request->categoryes != "All") $product->where('category_ms_id', $request->categoryes);
+        $product = $product->get();
+        $category = Category_m::all();
+        $subcategory = SubCategory::all();
+        $brand = Brand::all();
+        return view('frontend.pages.product_by_category', compact('category', 'subcategory', 'brand', 'product'));
     }
 }

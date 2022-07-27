@@ -97,6 +97,7 @@ Route::get('/view-details/{id}', [HomeController::class, 'view_details']);
 Route::get('/product-by-category/{id}', [HomeController::class, 'product_by_category']);
 Route::get('/product-by-subcategory/{id}', [HomeController::class, 'product_by_subcategory']);
 Route::get('/product-by-brand/{id}', [HomeController::class, 'product_by_brand']);
+Route::get('/search/', [HomeController::class, 'search']);
 
 // Add to cart
 Route::post('add-to-cart/',[CartController::class, 'add_to_cart']);
