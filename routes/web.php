@@ -14,6 +14,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SslCommerzPaymentController;
 
 
 /*
@@ -104,20 +105,20 @@ Route::post('add-to-cart/',[CartController::class, 'add_to_cart']);
 Route::get('cart-item-delete/{id}',[CartController::class, 'cart_item_delete']);
 
 // Checkout page route
-Route::get('checkout-page/',[CheckoutController::class, 'index']);
+// Route::get('checkout-page/',[CheckoutController::class, 'index']);
 Route::get('login-check/',[CheckoutController::class, 'login_check']);
 
 // Customer login registration
 Route::post('customer-login/',[CustomerController::class, 'customer_login']);
 Route::post('customer-registration/',[CustomerController::class, 'customer_registration']);
 Route::get('customer-logout/',[CustomerController::class, 'customer_logout']);
-Route::post('save-shipping-address/',[CheckoutController::class, 'save_shipping_address']);
-Route::get('payment/',[CheckoutController::class, 'payment']);
-Route::post('order-place/',[CheckoutController::class, 'order_place']);
+// Route::post('save-shipping-address/',[CheckoutController::class, 'save_shipping_address']);
+// Route::get('payment/',[CheckoutController::class, 'payment']);
+// Route::post('order-place/',[CheckoutController::class, 'order_place']);
 
 //*#*#*#*#*#*#*#*#*#*#*#*#*#*#
 // SSLCOMMERZ Start
-Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/checkout-page', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
 Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
 
 Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
