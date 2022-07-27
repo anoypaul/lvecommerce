@@ -62,7 +62,8 @@
     <div class="row">
         <div class="col-md-6 login-form-1">
             <h3>Login</h3>
-            
+            <form action="{{url('customer-login/')}}" method="post">
+                @csrf
                 <div class="form-group">
                     <input type="text" name="email" class="form-control" placeholder="Your Email *" value="" />
                 </div>
@@ -72,14 +73,15 @@
                 <div class="form-group">
                     <input type="submit" class="btnSubmit" value="Login" />
                 </div>
-                
-            
+            </form> 
         </div>
         <div class="col-md-6 login-form-2">
             <div class="login-logo">
                 <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
             </div>
             <h3>Registration</h3>
+            <form action="{{url('customer-registration/')}}" method="post">
+                @csrf
                 <div class="form-group">
                     <input type="text" name="name" class="form-control" placeholder="Enter Your Name *" value="" />
                 </div>
@@ -90,7 +92,7 @@
                     <input type="password" name="password" class="form-control" placeholder="Your Password *" value="" />
                 </div>
                 <div class="form-group">
-                    <input type="number" name="number" class="form-control" placeholder="Your Number *" value="" />
+                    <input type="number" name="phone" class="form-control" placeholder="Your Number *" value="" />
                 </div>
                 <div class="form-group">
                     <input type="submit" class="btnSubmit" value="register" />

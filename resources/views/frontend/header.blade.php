@@ -7,8 +7,16 @@
             <li><a href="#"><i class="fa fa-map-marker"></i> 1734 Stonecoal Road</a></li>
         </ul>
         <ul class="header-links pull-right">
-            <li><a href="#"><i class="fa fa-dollar"></i> USD</a></li>
-            <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li>
+            <li><a href="#"><i class="fa fa-dollar"></i> BDT</a></li>
+            @php
+                $customers_id = session()->get('customers_id');
+            @endphp
+            @if ($customers_id != null)
+                <li><a href="{{url('customer-logout/')}}"><i class="fa fa-user-o"></i> Logout</a></li>
+            @else
+                <li><a href="{{url('login-check/')}}"><i class="fa fa-user-o"></i> login</a></li>
+            @endif
+            {{-- <li><a href="#"><i class="fa fa-user-o"></i> My Account</a></li> --}}
         </ul>
     </div>
 </div>
@@ -102,7 +110,15 @@
                             </div>
                             <div class="cart-btns">
                                 <a href="{{url('login-check/')}}">View Cart</a>
-                                <a href="{{url('checkout-page/')}}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+
+                                @php
+                                    $customer_id = session()->get('customer_id');
+                                @endphp
+                                @if ($customer_id != null)
+                                    <a href="{{url('checkout-page/')}}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                @else
+                                    <a href="{{url('login-check/')}}">Checkout  <i class="fa fa-arrow-circle-right"></i></a>
+                                @endif
                             </div>
 
                         </div>

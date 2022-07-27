@@ -8,16 +8,11 @@ use Cart;
 class CartController extends Controller
 {
     public function add_to_cart(Request $request){
-        // echo '<pre>';
-        // print_r($_POST);
-        // exit;
+        
         $quantity = $request->quantity;
         $id = $request->id;
 
         $products = Product::where('products_id', $id)->first();
-        // echo '<pre>';
-        // print_r($products);
-        // exit;
         $data['quantity'] = $quantity;
         $data['id'] = $products->products_id;
         $data['name'] = $products->products_name;

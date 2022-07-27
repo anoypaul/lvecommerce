@@ -12,6 +12,8 @@ use App\Http\Controllers\ColorController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 
 
 /*
@@ -80,6 +82,11 @@ Route::get('/product/{product}', [ProductController::class, 'edit']);
 Route::post('/product/{product}', [ProductController::class, 'update']);
 Route::get('/product/destroy/{product}', [ProductController::class, 'destroy']);
 
+// *******##### Order Route mange #####*******
+Route::get('manage-order/', [OrderController::class, 'manage_order']);
+Route::get('view-order-details/{id}', [OrderController::class, 'view_order_details']);
+
+
 
 // *******##### Frontend Route #####*******
 // Route::get('/', function () {
@@ -94,6 +101,16 @@ Route::get('/product-by-brand/{id}', [HomeController::class, 'product_by_brand']
 // Add to cart
 Route::post('add-to-cart/',[CartController::class, 'add_to_cart']);
 Route::get('cart-item-delete/{id}',[CartController::class, 'cart_item_delete']);
+
 // Checkout page route
 Route::get('checkout-page/',[CheckoutController::class, 'index']);
 Route::get('login-check/',[CheckoutController::class, 'login_check']);
+
+// Customer login registration
+Route::post('customer-login/',[CustomerController::class, 'customer_login']);
+Route::post('customer-registration/',[CustomerController::class, 'customer_registration']);
+Route::get('customer-logout/',[CustomerController::class, 'customer_logout']);
+Route::post('save-shipping-address/',[CheckoutController::class, 'save_shipping_address']);
+Route::get('payment/',[CheckoutController::class, 'payment']);
+Route::post('order-place/',[CheckoutController::class, 'order_place']);
+
