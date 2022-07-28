@@ -5,13 +5,18 @@ namespace App\Http\Controllers;
 use DB;
 use Illuminate\Http\Request;
 use App\Library\SslCommerz\SslCommerzNotification;
+use App\Models\Category_m;
+use Cart;
 
 class SslCommerzPaymentController extends Controller
 {
 
     public function exampleEasyCheckout()
     {
-        return view('frontend.pages.checkout');
+        $category = Category_m::all();
+        $cartCollection = Cart::getContent();
+        $cartData = $cartCollection->toArray();
+        return view('frontend.pages.checkout', compact('category', 'cartData'));
     }
 
     public function exampleHostedCheckout()

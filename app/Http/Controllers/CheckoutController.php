@@ -23,8 +23,10 @@ class CheckoutController extends Controller
     public function login_check(){
         $category = Category_m::all();
         $customers_id = session()->get('customers_id');
+        $cartCollection = Cart::getContent();
+        $cartData = $cartCollection->toArray();
         if($customers_id != null){
-            return view('frontend.pages.checkout', compact('category', 'customers_id'));
+            return view('frontend.pages.checkout', compact('category', 'customers_id', 'cartData'));
         }else{
             return view('frontend.pages.login',compact('category'));
         }

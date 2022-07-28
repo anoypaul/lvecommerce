@@ -107,6 +107,7 @@ Route::get('cart-item-delete/{id}',[CartController::class, 'cart_item_delete']);
 // Checkout page route
 // Route::get('checkout-page/',[CheckoutController::class, 'index']);
 Route::get('login-check/',[CheckoutController::class, 'login_check']);
+// Route::get('/checkout-page/',[CheckoutController::class, 'login_check']);
 
 // Customer login registration
 Route::post('customer-login/',[CustomerController::class, 'customer_login']);
