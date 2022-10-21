@@ -59,9 +59,6 @@ class SubCategoryController extends Controller
      */
     public function change_status(SubCategory $subcategory)
     {
-        // echo '<pre>';
-        // print_r($subcategory);
-        // exit;
         if($subcategory->sub_categories_status == 1){
             $subcategory->update(['sub_categories_status'=>0]);
         }else{
@@ -80,9 +77,6 @@ class SubCategoryController extends Controller
     {
         $category = Category_m::all();
         $subcategory = SubCategory::find($subcategory);
-        // echo '<pre>';
-        // print_r($subcategory);
-        // exit;
         return view('admin.subcategory.edit', compact('category', 'subcategory'));
     }
 
@@ -95,9 +89,6 @@ class SubCategoryController extends Controller
      */
     public function update(Request $request, $subcategory)
     {
-        // echo '<pre>';
-        // print_r($request);
-        // exit;
         $subcategory = SubCategory::find($subcategory);
         $subcategory->category_ms_id = $request->category;
         $subcategory->sub_categories_name = $request->name;
